@@ -16,10 +16,6 @@ greatest_decrease_amount = 0
 
 import csv 
 
-# Initialize lists to hold profitable and unprofitable day profits/losses
-profitable_months = []
-unprofitable_months = []
-
 # Specify the path to your CSV file
 csv_file_path = "/Users/helobonetti/Desktop/BERKELEY/python-homework/budget_data.csv"
 
@@ -40,19 +36,19 @@ for i, (month, month_pnl) in enumerate(trading_data):
 
     # Calculate the change in profits/losses
     if i > 0:
-        average_change += (month_pnl - trading_data[i-1][1])
+        change = month_pnl - trading_data[i-1][1]
+        average_change += change
 
     # Logic to determine minimum and maximum values
-    if i == 0 or month_pnl < greatest_decrease_amount:
-        greatest_decrease_month = month
-        greatest_decrease_amount = month_pnl
-    elif month_pnl > greatest_increase_amount:
-        greatest_increase_month = month
-        greatest_increase_amount = month_pnl
+        if change < greatest_decrease_amount:
+            greatest_decrease_month = month
+            greatest_decrease_amount = change
+        elif change > greatest_increase_amount:
+            greatest_increase_month = month
+            greatest_increase_amount = change
 
 # Calculate the average change
 average_change /= (total_months - 1) if total_months > 1 else 1  # Avoid division by zero
-
 
 # Print or use the calculated metrics as needed
 print("Financial Analysis")
@@ -62,4 +58,3 @@ print(f"Total: ${total}")
 print(f"Average Change: ${average_change:.2f}")
 print(f"Greatest Increase in Profits: {greatest_increase_month} (${greatest_increase_amount})")
 print(f"Greatest Decrease in Profits: {greatest_decrease_month} (${greatest_decrease_amount})")
-
