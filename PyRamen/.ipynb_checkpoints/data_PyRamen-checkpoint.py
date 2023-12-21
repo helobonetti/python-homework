@@ -1,42 +1,28 @@
 import csv
 
 # Step 1: Read in menu_data.csv
-menu_data = []  # Initialize an empty menu list object
+menu_data = []  
 menu_file_path = "/Users/helobonetti/Desktop/BERKELEY/python-homework/PyRamen/menu_data.csv"
 with open(menu_file_path, newline="") as menu_file:
-    # Use the reader function to read menu_data.csv
     menu_reader = csv.reader(menu_file)
-
-    # Use the next function to skip the header (first row of the CSV)
     next(menu_reader)
-
-    # Loop over the rest of the rows and append every row to the menu list object
     for row in menu_reader:
         menu_data.append(row)
 
+print(f"Number of menu items: {len(menu_data)}")
+
 # Step 2: Read in sales_data.csv
-sales_data = []  # Initialize an empty sales list object
+sales_data = []  
 sales_file_path = "/Users/helobonetti/Desktop/BERKELEY/python-homework/PyRamen/sales_data.csv"
 with open(sales_file_path, newline="") as sales_file:
-    # Use the reader function to read sales_data.csv
     sales_reader = csv.reader(sales_file)
-
-    # Use the next function to skip the header (first row of the CSV)
     next(sales_reader)
-
-    # Loop over the rest of the rows
     for row in sales_reader:
-        # Check if 'Quantity' is a valid integer
-        try:
-            quantity = int(row[1])
-        except ValueError:
-            print(f"Invalid value for Quantity: {row[1]}. Replacing with default quantity (0).")
-            quantity = 0  # Set a default value or choose another strategy
+        sales_data.append(row)
 
-        sales_item = row[4]
-
-
-# Step 3: Initialize an empty report dictionary
+print(f"Number of sales records: {len(sales_data)}")
+    
+   # Step 3: Initialize an empty report dictionary
 report = {}
 
 # Create a dictionary to map menu items to their corresponding price and cost
